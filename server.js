@@ -1,62 +1,95 @@
-const express = require('express')
-const app = express()
-const cors = require('cors')
-const PORT = 8000
-
-app.use(cors())
-
-let rappers = {
-    '21 savage': {
-        'age': 28,
-        'birthName': 'Shéyaa Bin Abraham-Joseph',
-        'birthdate': '22 October 1992', 
-        'birthLocation': 'London, England',
-        'origin': 'Atlanta, Georgia',
-        'genre': 'hip hop, trap, rap, horrorcore',
-        'occupation': 'rapper, songwriter, record producer',
-        'yearsActive': '2013-present',
-        'labels': 'Epic, Slaughter Gang',
-        'children': 3
-    },
-    'chance the rapper':{
-        'age': 28,
-        'birthName': 'Chancelor Jonathan Bennett',
-        'birthdate': 'April 16, 1993', 
-        'birthLocation': 'London, England',
-        'origin': 'Chicago, Illinois',
-        'genre': 'hip hop, alternative hip hop, r & b',
-        'occupation': 'rapper, singer, song writer, record producer, activist, actor, philanthropist',
-        'yearsActive': '2011-present',
-        'labels': 'none',
-        'children': 0
-    },
-    'unknown':{
-        'age': 'unknown',
-        'birthName': 'unknown',
-        'birthdate': 'unknown', 
-        'birthLocation': 'unknown',
-        'origin': 'unknown',
-        'genre': 'unknown',
-        'occupation': 'unknown',
-        'yearsActive': 'unknown',
-        'labels': 'unknown',
-        'children': 'unknown'
+//create an object to store bot choice
+const botChoice = {
+    value() {
+      //generate random integer
+      botValue = Math.ceil(Math.random() * 3)
+      //use switch statement to map integer with string value
+    switch(botValue){
+      case 1:
+        return "rock"
+      break;
+      case 2:
+       return "paper"
+      break;
+      case 3:
+        return "scissors"
+      break;
+      default: 
+        return "Error"
+      }
     }
-}
-
-app.get('/', (request, response) => {
-    response.sendFile(__dirname + '/index.html')
-})
-
-app.get('/api/:name', (request, response) => {
-    const rapperName = request.params.name.toLowerCase()
-    if(rappers[rapperName]){
-        response.json(rappers[rapperName])
+  }
+  
+  //create object to store game result
+  const gameResult = {
+    //pass in arguments
+    result(playerChoice, botChoiceValue) {
+      //conditional statement to determine game winner
+      if(playerChoice === botChoiceValue){
+        return "Draw"
+      }else if(playerChoice === "rock" && botChoiceValue === "scissors" || playerChoice === "paper" && botChoiceValue === "rock" || playerChoice === "scissors" && botChoiceValue === "paper"){
+        return "You Win"
+      }else{
+        return "You Lose"
+      }
+    }
+  }
+  
+  
+  const http = require('http');
+  const fs = require('fs')
+  const url = require('url');
+  const querystring = require('querystring');
+  const figlet = require('figlet')
+  
+  const server = http.createServer((req, res) => {
+    const page = url.parse(req.url).pathname;
+    const params = querystring.parse(url.parse(req.url).query);
+    console.log(page);
+    if (page == '/') {
+      fs.readFile('index.html', function(err, data) {
+        res.writeHead(200, {'Content-Type': 'text/html'});
+        res.write(data);
+        res.end();
+      });
+    }else if (page == '/api') {
+      if('userchoice' in params){
+        //get userchoice
+        const playerChoice = params["userchoice"];
+        //get botchoice
+        const botChoiceValue = botChoice.value();
+        //get game result
+        const gameResultValue = gameResult.result(playerChoice, botChoiceValue)
+        //create js object
+          const objToJson = {
+            playerChoice: playerChoice,
+            bot: botChoiceValue,
+            result: gameResultValue,
+          }
+        res.writeHead(200, {'Content-Type': 'application/json'});
+        res.end(JSON.stringify(objToJson));  
+      }   
+    }else if (page == '/css/style.css'){
+      fs.readFile('css/style.css', function(err, data) {
+        res.write(data);
+        res.end();
+      });
+    }else if (page == '/js/main.js'){
+      fs.readFile('js/main.js', function(err, data) {
+        res.writeHead(200, {'Content-Type': 'text/javascript'});
+        res.write(data);
+        res.end();
+      });
     }else{
-        response.json(rappers['unknown'])
+      figlet('404!!', function(err, data) {
+        if (err) {
+            console.log('Something went wrong...');
+            console.dir(err);
+            return;
+        }
+        res.write(data);
+        res.end();
+      })
     }
-})
-
-app.listen(process.env.PORT || PORT, () => {
-    console.log(`Server running on port ${PORT}`)
-})
+  })
+  server.listen(8000)
