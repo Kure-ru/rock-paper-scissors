@@ -67,7 +67,7 @@ const botChoice = {
             result: gameResultValue,
           }
         res.writeHead(200, {'Content-Type': 'application/json'});
-        res.end(JSON.stringify(objToJson));  
+        res.end(JSON.stringify(objToJson));
       }   
     }else if (page == '/css/style.css'){
       fs.readFile('css/style.css', function(err, data) {
