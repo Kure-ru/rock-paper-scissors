@@ -1,78 +1,62 @@
-const http = require('http');
-const fs = require('fs')
-const url = require('url');
-const querystring = require('querystring');
-const figlet = require('figlet')
+const express = require('express')
+const app = express()
+const cors = require('cors')
+const PORT = 8000
 
-const server = http.createServer((req, res) => {
-  const page = url.parse(req.url).pathname;
-  const params = querystring.parse(url.parse(req.url).query);
-  console.log(page);
-  if (page == '/') {
-    fs.readFile('index.html', function(err, data) {
-      res.writeHead(200, {'Content-Type': 'text/html'});
-      res.write(data);
-      res.end();
-    });
-  }
-  else if (page == '/otherpage') {
-    fs.readFile('otherpage.html', function(err, data) {
-      res.writeHead(200, {'Content-Type': 'text/html'});
-      res.write(data);
-      res.end();
-    });
-  }
-  else if (page == '/otherotherpage') {
-    fs.readFile('otherotherpage.html', function(err, data) {
-      res.writeHead(200, {'Content-Type': 'text/html'});
-      res.write(data);
-      res.end();
-    });
-  }
-  else if (page == '/api') {
-    if('student' in params){
-      if(params['student']== 'leon'){
-        res.writeHead(200, {'Content-Type': 'application/json'});
-        const objToJson = {
-          name: "leon",
-          status: "Boss Man",
-          currentOccupation: "Baller"
-        }
-        res.end(JSON.stringify(objToJson));
-      }//student = leon
-      else if(params['student'] != 'leon'){
-        res.writeHead(200, {'Content-Type': 'application/json'});
-        const objToJson = {
-          name: "unknown",
-          status: "unknown",
-          currentOccupation: "unknown"
-        }
-        res.end(JSON.stringify(objToJson));
-      }//student != leon
-    }//student if
-  }//else if
-  else if (page == '/css/style.css'){
-    fs.readFile('css/style.css', function(err, data) {
-      res.write(data);
-      res.end();
-    });
-  }else if (page == '/js/main.js'){
-    fs.readFile('js/main.js', function(err, data) {
-      res.writeHead(200, {'Content-Type': 'text/javascript'});
-      res.write(data);
-      res.end();
-    });
-  }else{
-    figlet('404!!', function(err, data) {
-      if (err) {
-          console.log('Something went wrong...');
-          console.dir(err);
-          return;
-      }
-      res.write(data);
-      res.end();
-    });
-  }
-});
+app.use(cors())
 
-server.listen(8000);
+let rappers = {
+    '21 savage': {
+        'age': 28,
+        'birthName': 'Shéyaa Bin Abraham-Joseph',
+        'birthdate': '22 October 1992', 
+        'birthLocation': 'London, England',
+        'origin': 'Atlanta, Georgia',
+        'genre': 'hip hop, trap, rap, horrorcore',
+        'occupation': 'rapper, songwriter, record producer',
+        'yearsActive': '2013-present',
+        'labels': 'Epic, Slaughter Gang',
+        'children': 3
+    },
+    'chance the rapper':{
+        'age': 28,
+        'birthName': 'Chancelor Jonathan Bennett',
+        'birthdate': 'April 16, 1993', 
+        'birthLocation': 'London, England',
+        'origin': 'Chicago, Illinois',
+        'genre': 'hip hop, alternative hip hop, r & b',
+        'occupation': 'rapper, singer, song writer, record producer, activist, actor, philanthropist',
+        'yearsActive': '2011-present',
+        'labels': 'none',
+        'children': 0
+    },
+    'unknown':{
+        'age': 'unknown',
+        'birthName': 'unknown',
+        'birthdate': 'unknown', 
+        'birthLocation': 'unknown',
+        'origin': 'unknown',
+        'genre': 'unknown',
+        'occupation': 'unknown',
+        'yearsActive': 'unknown',
+        'labels': 'unknown',
+        'children': 'unknown'
+    }
+}
+
+app.get('/', (request, response) => {
+    response.sendFile(__dirname + '/index.html')
+})
+
+app.get('/api/:name', (request, response) => {
+    const rapperName = request.params.name.toLowerCase()
+    if(rappers[rapperName]){
+        response.json(rappers[rapperName])
+    }else{
+        response.json(rappers['unknown'])
+    }
+})
+
+app.listen(process.env.PORT || PORT, () => {
+    console.log(`Server running on port ${PORT}`)
+})
