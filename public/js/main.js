@@ -37,6 +37,22 @@ function draw (){
 function updateDisplayedScores(){
   document.querySelector("#playerpoints").innerText = playerScoreVal
   document.querySelector("#botpoints").innerText = botScoreVal
+   //check if player or computer has 3 wins
+   checkEndGame(playerScoreVal, botScoreVal)
+}
+
+
+const checkEndGame = () => {
+  if (playerScoreVal === 3){
+    document.querySelector("#result").innerHTML = "YOU WIN!!"
+    playerScoreVal = 0
+    botScoreVal = 0
+  }
+  else if (botScoreVal === 3){
+    document.querySelector("#result").innerHTML = "GAME OVER"
+    playerScoreVal = 0
+    botScoreVal = 0
+  }
 }
 
 async function makeReq(){
