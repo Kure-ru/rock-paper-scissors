@@ -11,27 +11,28 @@
   <title>Rock Paper Scissors</title>
 </head>
 <body>
-  <section>
-    <form action="POST">
-      <input type="text" id="userchoice" name="" placeholder="Enter Choice"></input>
-      <button id="clickMe" type="button" name="button">Click Me</button>
-    </form>
-    <div class="result">
-      <h2>Player: <span id="playersdecision"></span></h2>
-      <h2>Bot: <span id="botsdecision"></span></h2>
-      <h2>Result: <span id="result"></span></h2>
-    </div>
-  </section>
-
-  <section id="scores">
-    <h2>First to three wins!</h2>
-    <span>Player's score:
-      <span id="playerpoints"></span>
-    </span>
-    <span>Bot's score:
-      <span id="botpoints"></span>
-    </span>
-  </section>
+  <div class="container">
+    <section>
+      <form action="POST">
+        <input type="text" id="userchoice" name="" placeholder="Enter Choice"></input>
+        <button id="clickMe" type="button" name="button">Click Me</button>
+      </form>
+      <div class="result">
+        <h2>Player: <span id="playersdecision"></span></h2>
+        <h2>Bot: <span id="botsdecision"></span></h2>
+        <h2>Result: <span id="result"></span></h2>
+      </div>
+    </section>
+    <section id="scores">
+      <h2>First to three wins!</h2>
+      <span>Player's score:
+        <span id="playerpoints"></span>
+      </span>
+      <span>Bot's score:
+        <span id="botpoints"></span>
+      </span>
+    </section>
+  </div>
 
   <script type="text/javascript" src="js/main.js"></script>
 </body>
