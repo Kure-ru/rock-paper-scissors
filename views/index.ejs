@@ -14,8 +14,19 @@
   <div class="container">
     <section>
       <form action="POST">
-        <input type="text" id="userchoice" name="" placeholder="Enter Choice"></input>
-        <button id="clickMe" type="button" name="button">Click Me</button>
+        <!--<input type="text" id="userchoice" name="" placeholder="Enter Choice"></input>
+        <button id="clickMe" type="button" name="button">Click Me</button>-->
+        <div class="button__container">
+          <button id="rock" class="button choice__button" type="button" name="option" value="rock">
+            <img class="image" src="images/rock.svg" alt="rock">
+          </button>
+          <button id="paper" class="button choice__button" type="button" name="option" value="paper">
+            <img class="image" src="images/paper.svg" alt="paper">
+          </button>
+          <button id="scissors" class="button choice__button" type="button" name="option" value="scissors">
+            <img class="image" src="images/scissors.svg" alt="scissors">
+          </button>
+        </div>
       </form>
       <div class="result">
         <h2>Player: <span id="playersdecision"></span></h2>
