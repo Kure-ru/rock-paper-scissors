@@ -66,9 +66,20 @@ async function makeReq(choiceValue) {
   const data = await res.json();
 
   console.log(data);
-  document.querySelector("#playersdecision").textContent = data.playerChoice
-  document.querySelector("#botsdecision").textContent = data.bot
-  document.querySelector("#result").textContent = data.result
+  // document.querySelector("#playersdecision").textContent = data.playerChoice
+  // document.querySelector("#botsdecision").textContent = data.bot
+  document.querySelector('#result').textContent = data.result;
+
+  const playerSelectionButton = document.querySelector(`#${data.playerChoice}`);
+  const botSelectionButton = document.querySelector(`#${data.bot}`);
+
+  playerSelectionButton.classList.add(`player__selection`);
+  botSelectionButton.classList.add(`bot__selection`);
+
+  setTimeout(() => {
+    playerSelectionButton.classList.remove('player__selection');
+    botSelectionButton.classList.remove('bot__selection');
+  }, '800');
 
   switch(data.result){
     case "You Win":
