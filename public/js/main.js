@@ -1,5 +1,10 @@
+// document.querySelector('#clickMe').addEventListener('click', makeReq)
 
-document.querySelector('#clickMe').addEventListener('click', makeReq)
+document.querySelectorAll('.choice__button').forEach((button) => {
+  button.addEventListener('click', () => {
+    makeReq(button.value);
+  });
+});
 
 //creating localStorage to retain score across sessions, localstorage is client side only, however I may look at doing something server based instead, but that requires databases
 if(!localStorage.getItem("playersScore")){
