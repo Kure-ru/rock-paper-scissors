@@ -36,12 +36,16 @@
     </section>
     <section id="scores">
       <h2>First to three wins!</h2>
-      <span>Player's score:
-        <span id="playerpoints"></span>
-      </span>
-      <span>Bot's score:
-        <span id="botpoints"></span>
-      </span>
+      <div class="scoreboard">
+        <div class="score__container player__score">
+          <span class="name">Player</span>
+          <span class="points" id="playerpoints"></span>
+        </div>
+        <div class="score__container bot__score">
+          <span class="name">Bot</span>
+          <span class="points" id="botpoints"></span>
+        </div>
+      </div>
     </section>
   </div>
 
