@@ -7,13 +7,12 @@ document.querySelectorAll('.choice__button').forEach((button) => {
 });
 
 //creating localStorage to retain score across sessions, localstorage is client side only, however I may look at doing something server based instead, but that requires databases
-if(!localStorage.getItem("playersScore")){
-  localStorage.setItem("playersScore", 0)
-
+if (!localStorage.getItem('playersScore')) {
+  localStorage.setItem('playersScore', 0);
 }
 
-if(!localStorage.getItem("botsScore")){
-  localStorage.setItem("botsScore", 0)
+if (!localStorage.getItem('botsScore')) {
+  localStorage.setItem('botsScore', 0);
 }
 
 let playerScoreVal = Number(localStorage.getItem('playersScore'))
@@ -60,11 +59,11 @@ const checkEndGame = () => {
   }
 }
 
-async function makeReq(){
-
-  const playerChoice = document.querySelector("#userchoice").value; //grab the players choice
-  const res = await fetch(`/api?userchoice=${playerChoice}`)  //the choice is used as the query parameter for the API, which is requested to the server.
-  const data = await res.json()
+async function makeReq(choiceValue) {
+  // const playerChoice = document.querySelectorAll("button").value; //grab the players choice
+  let playerChoice = choiceValue;
+  const res = await fetch(`/api?userchoice=${playerChoice}`); //the choice is used as the query parameter for the API, which is requested to the server.
+  const data = await res.json();
 
   console.log(data);
   document.querySelector("#playersdecision").textContent = data.playerChoice
