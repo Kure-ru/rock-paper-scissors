@@ -1,5 +1,6 @@
 //Express code for refactoring
 const express = require("express");
+const ejs = require('ejs');
 const app = express();
 const PORT = 8000;
 
