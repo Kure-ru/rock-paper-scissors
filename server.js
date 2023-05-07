@@ -1,5 +1,6 @@
 //Express code for refactoring
 const express = require("express");
+const ejs = require('ejs');
 const app = express();
 const PORT = 8000;
 
@@ -9,7 +10,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/index.html");
+  // res.sendFile(__dirname + "/index.html");
+  res.render('index')
 });
 
 app.get("/api", (req, res) => {

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <title>Rock Paper Scissors</title>
+</head>
+<body>
+  <div class="container">
+    <section>
+      <form action="POST">
+        <!--<input type="text" id="userchoice" name="" placeholder="Enter Choice"></input>
+        <button id="clickMe" type="button" name="button">Click Me</button>-->
+        <div class="button__container">
+          <button id="rock" class="button choice__button" type="button" name="option" value="rock">
+            <img class="image" src="images/rock.svg" alt="rock">
+          </button>
+          <button id="paper" class="button choice__button" type="button" name="option" value="paper">
+            <img class="image" src="images/paper.svg" alt="paper">
+          </button>
+          <button id="scissors" class="button choice__button" type="button" name="option" value="scissors">
+            <img class="image" src="images/scissors.svg" alt="scissors">
+          </button>
+        </div>
+      </form>
+      <div class="result">
+        <!--<h2>Player: <span id="playersdecision"></span></h2>
+        <h2>Bot: <span id="botsdecision"></span></h2>-->
+        <h2 id="result"></h2>
+      </div>
+    </section>
+    <section id="scores">
+      <h2>First to three wins!</h2>
+      <div class="scoreboard">
+        <div class="score__container player__score">
+          <span class="name">Player</span>
+          <span class="points" id="playerpoints"></span>
+        </div>
+        <div class="score__container bot__score">
+          <span class="name">Bot</span>
+          <span class="points" id="botpoints"></span>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script type="text/javascript" src="js/main.js"></script>
+</body>
+</html>
