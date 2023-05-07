@@ -1,5 +1,7 @@
 // document.querySelector('#clickMe').addEventListener('click', makeReq)
 
+//used querySelectorAll to select all buttons and used forEach method to addEventListeners to each individual button
+//Event listener's callback function calls makeReq function and passes the current button's value in as an argument
 document.querySelectorAll('.choice__button').forEach((button) => {
   button.addEventListener('click', () => {
     makeReq(button.value);
@@ -55,9 +57,8 @@ const checkEndGame = () => {
   }
 };
 
-async function makeReq(choiceValue) {
-  // const playerChoice = document.querySelectorAll("button").value; //grab the players choice
-  let playerChoice = choiceValue;
+async function makeReq(playerChoice) { //added playerChoice parameter to makeReq function to pass in current button value
+
   const res = await fetch(`/api?userchoice=${playerChoice}`); //the choice is used as the query parameter for the API, which is requested to the server.
   const data = await res.json();
 
@@ -66,12 +67,15 @@ async function makeReq(choiceValue) {
   // document.querySelector("#botsdecision").textContent = data.bot
   document.querySelector('#result').textContent = data.result;
 
+  //the following variables hold the current button selection based on the api's returned data for player and bot moves
   const playerSelectionButton = document.querySelector(`#${data.playerChoice}`);
   const botSelectionButton = document.querySelector(`#${data.bot}`);
 
+  //a css class is added to each button to indicate the player and bot choice
   playerSelectionButton.classList.add(`player__selection`);
   botSelectionButton.classList.add(`bot__selection`);
 
+  //setTimout removes player and bot selection classes after 800ms
   setTimeout(() => {
     playerSelectionButton.classList.remove('player__selection');
     botSelectionButton.classList.remove('bot__selection');
